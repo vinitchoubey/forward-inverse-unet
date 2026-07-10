@@ -2,7 +2,7 @@
 
 This project looks at a cantilever beam made of centered rectangular unit cells, fixed at one edge with a single point load applied at the mid-right edge. Every strut in the lattice can have a different thickness, and the goal is to understand how the thickness distribution across the structure affects the resulting Von Mises stress field.
 
-![Beam structure](outputs/beam.png)
+![Beam structure](beam.png)
 
 Two UNets are trained here:
 
