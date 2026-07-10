@@ -2,7 +2,7 @@
 
 This project looks at a cantilever beam made of centered rectangular unit cells, fixed at one edge with a single point load applied at the mid-right edge. Every strut in the lattice can have a different thickness, and the goal is to understand how the thickness distribution across the structure affects the resulting Von Mises stress field.
 
-![Beam structure](beam.png)
+![Beam structure](outputs/beam.png)
 
 Two UNets are trained here:
 
@@ -128,8 +128,8 @@ For the cyclic check, the inverse model's output gets clipped to [0, 1] before b
 
 ## Cyclic validation results
 
-![Cyclic validation grid](results/cyclic/cyclic_validation.png)
+![Cyclic validation grid](results/cyclic/cyclic_validationpng.png)
 
-![Cyclic R2 distribution](results/cyclic/r2.png)
+![Cyclic R2 distribution](results/cyclic/cyclic-r2.png)
 
 
