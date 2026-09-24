@@ -22,10 +22,10 @@ for _d in (DATA_DIR, STRESS_DIR, SAVE_DIR, MODEL_DIR, FWD_DIR, INV_DIR, CYC_DIR)
     os.makedirs(_d, exist_ok=True)
 
 #  Hyper-parameters 
-N_SAMPLES  = 4500
+N_SAMPLES  = 4900
 GRID_H     = 64
 GRID_W     = 128
-EPOCHS     = 60
+EPOCHS     = 150
 BATCH_SIZE = 16
 N_PLOT     = 3          # rows (samples) in every visualisation grid
 N_DESIGN   = 226

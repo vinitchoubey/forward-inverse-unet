@@ -13,6 +13,8 @@ from . import config as cfg
 def conv_block(x, filters, drop=0.10):
     for _ in range(2):
         x = layers.Conv2D(filters, 3, padding='same')(x)
+        # this "same" makes the 0 padding as when we add a filter of 3 so reduced 62x126
+
         x = layers.BatchNormalization()(x)
         x = layers.Activation('relu')(x)
     return layers.Dropout(drop)(x)
@@ -56,10 +58,7 @@ def gradient_penalty(y_true, y_pred):
 
 
 def combined_loss(y_true, y_pred):
-    """MSE + MAE + gradient-penalty. The gradient term explicitly penalises
-    differences in spatial gradients, which is where stress concentrations
-    live — empirically the biggest driver of forward-model (and therefore
-    cyclic) R²."""
+    
     mse  = tf.reduce_mean(tf.square(y_true - y_pred))
     mae  = tf.reduce_mean(tf.abs(y_true - y_pred))
     grad = gradient_penalty(y_true, y_pred)
