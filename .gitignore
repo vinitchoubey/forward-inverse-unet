@@ -48,3 +48,4 @@ desktop.ini
 ~$*.xlsx
 outputs/ 
 Variable_loads/datasets_multiForce/ 
+Fixed_load/dataset/ 
