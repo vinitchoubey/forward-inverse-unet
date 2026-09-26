@@ -9,12 +9,13 @@ The repository covers two variants of this problem, kept as fully separate, inde
 | [`Fixed_load/`](#fixed_load--problem-1a) | Problem 1a | A single point load at the mid-right edge, fixed location and magnitude across the entire dataset. Only the strut-thickness distribution varies. |
 | [`Variable_loads/`](#variable_loads--problem-1b) | Problem 1b | Three point loads (`F1`, `F2`, `F3`) at the top edge, with both location and magnitude varied alongside the thickness distribution. |
 
-<p float="left">
-  <img src="Fixed_load/beam.png" width="45%" />
-  <img src="Variable_loads/beam.png" width="45%" />
-</p>
+Problem 1a's fixed single-load setup:
 
-*Left: Problem 1a's fixed single-load setup. Right: Problem 1b's variable three-load setup.*
+![Fixed load beam](Fixed_load/beam.png)
+
+Problem 1b's variable three-load setup:
+
+![Variable loads beam](Variable_loads/beam.png)
 
 ## What's being modeled
 
@@ -39,12 +40,10 @@ Both sub-projects share the same core dataset format:
 
 Both the thickness values and the stress values are scattered points, so they get interpolated onto a shared 64×128 pixel grid before being fed into the UNets as images.
 
-> The raw datasets (thousands of stress/coordinate text files) are too large for GitHub and are excluded via `.gitignore`. Download them separately and extract into the matching folder before running anything:
+> The raw dataset files are too large for GitHub and are excluded via `.gitignore` — place your own copy into the matching folder before running anything:
 >
-> **[ Insert cloud storage link here ]**
->
-> - Problem 1a → extract into `Fixed_load/dataset/`
-> - Problem 1b → extract into `Variable_loads/dataset/` (including `loaddata/`)
+> - Problem 1a → `Fixed_load/dataset/`
+> - Problem 1b → `Variable_loads/dataset/` (including `loaddata/`)
 
 ## Repository Structure
 
@@ -120,23 +119,17 @@ python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
 ```
 
-This one environment covers both sub-projects — `requirements.txt` is shared. Download the dataset(s) as described above before running anything.
+This one environment covers both sub-projects — `requirements.txt` is shared. Place the dataset into the correct folder(s) as described above before running anything.
 
-### GPU on Windows
+### GPU on Windows (optional)
 
-Native Windows TensorFlow builds lost GPU support after version 2.10, so GPU acceleration now needs WSL2:
+The code runs fine on CPU, just slower — this is only needed if you specifically want GPU acceleration. Native Windows TensorFlow builds lost GPU support after version 2.10, so GPU acceleration now needs WSL2:
 
 ```bash
 wsl --install
 ```
 
-Reboot, then inside Ubuntu:
-
-```bash
-nvidia-smi
-```
-
-should show the GPU with no extra driver install needed — it rides on the existing Windows NVIDIA driver. TensorFlow currently supports Python 3.10–3.13, so if Ubuntu's default Python is newer:
+Reboot into Ubuntu. TensorFlow currently supports Python 3.10–3.13, so if Ubuntu's default Python is newer:
 
 ```bash
 sudo add-apt-repository ppa:deadsnakes/ppa -y
@@ -153,12 +146,6 @@ source venv_wsl/bin/activate
 pip install --upgrade pip
 pip install tensorflow[and-cuda]
 pip install -r requirements.txt
-```
-
-Check it worked:
-
-```bash
-python -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
 ```
 
 ## Running
@@ -181,7 +168,7 @@ This loads and grids the data, trains the forward UNet, trains the inverse UNet,
 
 The forward model uses a combined loss — MSE plus MAE plus a gradient penalty term that specifically targets sharp stress concentrations, which turned out to matter more than either loss alone for getting a clean stress field. Before training the inverse model, the random seed gets reset so its dropout layers start from a fresh state rather than whatever was left over from training the forward model.
 
-For the cyclic check, the inverse model's output gets clipped to [0, 1] before being fed back into the forward model, since the forward model was only ever trained on inputs in that range. R² is reported in two spaces — log-normalized, which is the primary number since it isn't skewed by the long tail of high-stress values, and physical space, kept mainly for comparison.
+For the cyclic check, the inverse model's output gets clipped to [0, 1] before being fed back into the forward model, since the forward model was only ever trained on inputs in that range.
 
 ## Results
 
@@ -189,7 +176,7 @@ For the cyclic check, the inverse model's output gets clipped to [0, 1] before b
 
 **Forward UNet**
 
-![Forward training curve](Fixed_load/results/forward/B1_forward_training_curve.png)
+![Forward training curve](Fixed_load/results/forward/forward_loss.png)
 
 ![Forward prediction grid](Fixed_load/results/forward/B2_forward_predictions.png)
 
@@ -200,12 +187,6 @@ For the cyclic check, the inverse model's output gets clipped to [0, 1] before b
 ![Inverse training curve](Fixed_load/results/inverse/C1_inverse_training_curve.png)
 
 ![Inverse prediction grid](Fixed_load/results/inverse/C2_inverse_predictions.png)
-
-**Cyclic Validation**
-
-![Cyclic validation grid](Fixed_load/results/cyclic/D1_cyclic_validation.png)
-
-![Cyclic scatter plot](Fixed_load/results/cyclic/D3_cyclic_scatter.png)
 
 ### Variable_loads (Problem 1b)
 
@@ -223,12 +204,6 @@ For the cyclic check, the inverse model's output gets clipped to [0, 1] before b
 
 ![Inverse prediction grid](Variable_loads/results/inverse/C2_inverse_predictions.png)
 
-**Cyclic Validation**
-
-![Cyclic validation grid](Variable_loads/results/cyclic/D1_cyclic_validation.png)
-
-![Cyclic scatter plot](Variable_loads/results/cyclic/D3_cyclic_scatter.png)
-
 *(Populated automatically once `Variable_loads/main.py` has been run — same file names as above, generated under `Variable_loads/results/`.)*
 
 ## Notes on Git-ignored folders
@@ -239,4 +214,4 @@ The following are intentionally excluded from version control via `.gitignore` i
 - `outputs/` — generated model checkpoints and plots; fully regenerable by re-running `main.py`
 - `venv/`, `venv_wsl/` — local virtual environments
 
-If you're setting this up on a new machine, only `dataset/` needs to be manually downloaded and placed — everything else regenerates on its own.
+If you're setting this up on a new machine, only `dataset/` needs to be manually placed — everything else regenerates on its own.
