@@ -46,3 +46,4 @@ desktop.ini
 #  excel lock files (e.g. .~lock.output.xlsx#) 
 .~lock.*
 ~$*.xlsx
+outputs/ 
