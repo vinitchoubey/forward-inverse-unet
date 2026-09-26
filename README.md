@@ -114,11 +114,11 @@ For the cyclic check, the inverse model's output gets clipped to [0, 1] before b
 
 ## Forward UNet results
 
-![Forward training curve](results/forward/forward_loss.png)
+![Forward training curve](Fixed_load/results/forward/forward_loss.png)
 
-![Forward prediction grid](results/forward/B2_forward_predictions.png)
+![Forward prediction grid](Fixed_load/results/forward/B2_forward_predictions.png)
 
-![Forward scatter plot](results/forward/B3_forward_scatter.png)
+![Forward scatter plot](Fixed_load/results/forward/B3_forward_scatter.png)
 
 ## Inverse UNet results
 
