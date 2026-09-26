@@ -116,20 +116,20 @@ For the cyclic check, the inverse model's output gets clipped to [0, 1] before b
 
 ![Forward training curve](results/forward/forward_loss.png)
 
-![Forward prediction grid](results/forward/forward_beam_profiles.png)
+![Forward prediction grid](results/forward/B2_forward_predictions.png)
 
-![Forward scatter plot](results/forward/r2.png)
+![Forward scatter plot](results/forward/B3_forward_scatter.png)
 
 ## Inverse UNet results
 
-![Inverse training curve](results/inverse/inverse_loss.png)
+![Inverse training curve](results/inverse/C1_inverse_training_curve.png)
 
-![Inverse prediction grid](results/inverse/inverse_beam_profiles.png)
+![Inverse prediction grid](results/inverse/C2_inverse_predictions.png)
 
 ## Cyclic validation results
 
-![Cyclic validation grid](results/cyclic/cyclic_validationpng.png)
+![Cyclic validation grid](results/cyclic/D1_cyclic_validation.png)
 
-![Cyclic R2 distribution](results/cyclic/cyclic-r2.png)
+![Cyclic R2 distribution](results/cyclic/D3_cyclic_scatter.png)
 
 
