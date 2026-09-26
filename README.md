@@ -180,7 +180,6 @@ For the cyclic check, the inverse model's output gets clipped to [0, 1] before b
 
 ![Forward prediction grid](Fixed_load/results/forward/B2_forward_predictions.png)
 
-![Forward scatter plot](Fixed_load/results/forward/B3_forward_scatter.png)
 
 **Inverse UNet**
 
@@ -192,17 +191,16 @@ For the cyclic check, the inverse model's output gets clipped to [0, 1] before b
 
 **Forward UNet**
 
-![Forward training curve](Variable_loads/results/forward/B1_forward_training_curve.png)
+![Forward training curve](Variable_loads/results-multiforce/forward/B1_forward_training_curve.png)
 
-![Forward prediction grid](Variable_loads/results/forward/B2_forward_predictions.png)
+![Forward prediction grid](Variable_loads/results-multiforce/forward/B2_forward_predictions.png)
 
-![Forward scatter plot](Variable_loads/results/forward/B3_forward_scatter.png)
 
 **Inverse UNet**
 
-![Inverse training curve](Variable_loads/results/inverse/C1_inverse_training_curve.png)
+![Inverse training curve](Variable_loads/results-multiforce/inverse/C1_inverse_training_curve.png)
 
-![Inverse prediction grid](Variable_loads/results/inverse/C2_inverse_predictions.png)
+![Inverse prediction grid](Variable_loads/results-multiforce/inverse/C2_inverse_predictions.png)
 
 *(Populated automatically once `Variable_loads/main.py` has been run — same file names as above, generated under `Variable_loads/results/`.)*
 
